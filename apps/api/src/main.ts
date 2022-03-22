@@ -4,6 +4,10 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaClientExceptionFilter, PrismaService } from 'nestjs-prisma';
 import { AppModule } from './app.module';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import type {
   CorsConfig,
   NestConfig,
@@ -11,7 +15,10 @@ import type {
 } from 'src/common/configs/config.interface';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter()
+  );
 
   // Validation
   app.useGlobalPipes(new ValidationPipe());
@@ -42,9 +49,9 @@ async function bootstrap() {
   }
 
   // Cors
-  if (corsConfig.enabled) {
-    app.enableCors();
-  }
+  // if (corsConfig.enabled) {
+  //   app.enableCors();
+  // }
 
   await app.listen(process.env.PORT || nestConfig.port || 3000);
 }
