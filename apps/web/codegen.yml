@@ -1,0 +1,19 @@
+schema: http://localhost:4000/graphql
+documents:
+  - "components/**/*.{ts,tsx}"
+  - "lib/**/*.{ts,tsx}"
+  - "pages/**/*.{ts,tsx}"
+overwrite: true
+generates:
+  lib/graphql.tsx:
+    config:
+      withMutationFn: false
+      addDocBlocks: false
+      scalars:
+        DateTime: string
+    plugins:
+      - add:
+          content: "/* eslint-disable */"
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

@@ -5,6 +5,9 @@ node_modules
 .pnp
 .pnp.js
 
+# build
+dist
+
 # testing
 coverage
 
@@ -23,7 +26,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
+# env files
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -31,3 +35,7 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# prisma 
+prisma/*.db
+prisma/migrations/dev/
