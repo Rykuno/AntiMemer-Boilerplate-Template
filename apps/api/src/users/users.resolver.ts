@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 import { User } from './models/user.model';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { FindUniqueUserArgs } from '../@generated/prisma-nestjs-graphql/user/find-unique-user.args';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -25,6 +26,11 @@ export class UsersResolver {
   @Query(() => User, { nullable: true })
   async me(@UserEntity() user: User): Promise<User | null> {
     return user;
+  }
+
+  @Query(() => User, { nullable: true })
+  async user(@Args() args: FindUniqueUserArgs): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { ...args.where } });
   }
 
   @UseGuards(GqlAuthGuard)
@@ -49,10 +55,10 @@ export class UsersResolver {
     );
   }
 
-  @ResolveField('posts')
-  posts(@Parent() author: User) {
-    return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
-  }
+  // @ResolveField('posts')
+  // posts(@Parent() author: User) {
+  //   return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
+  // }
 
   @ResolveField(() => String)
   avatar(@Parent() user: User) {

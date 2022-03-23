@@ -106,6 +106,7 @@ type Query {
   me: User
   post(postId: String!): Post!
   publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
+  user(where: UserWhereUniqueInput!): User
   userPosts(userId: String!): [Post!]!
 }
 
@@ -148,9 +149,13 @@ type User {
   firstname: String
   id: ID!
   lastname: String
-  posts: [Post!]!
   role: Role!
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
+}
+
+input UserWhereUniqueInput {
+  email: String
+  id: String
 }
