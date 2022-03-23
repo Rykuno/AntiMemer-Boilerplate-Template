@@ -25,7 +25,6 @@ const retryLink = new RetryLink();
 const errorLink = onError(({ graphQLErrors, operation, forward }) => {
   if (graphQLErrors) {
     for (const err of graphQLErrors) {
-      console.log("ERR => ", err);
       switch (err.extensions.code) {
         case "UNAUTHENTICATED":
           return fromPromise(

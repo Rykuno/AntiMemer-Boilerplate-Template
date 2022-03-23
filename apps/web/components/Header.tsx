@@ -185,7 +185,7 @@ export function Header() {
         <Group>
           <ColorSchemeToggleButton />
           {me && <UserProfileMenu />}
-          {!me && <AuthButton />}
+          {!me && <AuthButton size="sm" />}
         </Group>
       </Container>
     </MHeader>

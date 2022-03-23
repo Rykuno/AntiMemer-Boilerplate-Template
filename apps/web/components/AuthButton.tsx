@@ -1,15 +1,14 @@
-import { Button } from "@mantine/core";
-import { useBooleanToggle } from "@mantine/hooks";
+import { Button, ButtonProps } from "@mantine/core";
 import { useRouter } from "next/router";
 
-export const AuthButton = () => {
-  const [authModalOpened, toggleAuthModal] = useBooleanToggle(false);
-  const { push, asPath, replace } = useRouter();
+export const AuthButton = (props: ButtonProps<any>) => {
+  const { asPath, replace } = useRouter();
 
   return (
     <>
       <Button
         onClick={() => replace({ pathname: asPath, query: { auth: true } })}
+        {...props}
       >
         Login
       </Button>
