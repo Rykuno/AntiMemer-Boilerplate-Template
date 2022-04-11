@@ -12,12 +12,6 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-generator nestgraphql {
-  // for yarn monorepos
-  provider = "prisma-nestjs-graphql"
-  output   = "../src/@generated/prisma-nestjs-graphql"
-}
-
 model User {
   id        String  @id @default(cuid())
   email     String  @unique

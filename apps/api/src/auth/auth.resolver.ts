@@ -6,8 +6,8 @@ import {
   ResolveField,
 } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { Auth } from './models/auth.model';
-import { Token } from './models/token.model';
+import { Auth } from './entities/auth.entity';
+import { Token } from './entities/token.entity';
 import { LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
