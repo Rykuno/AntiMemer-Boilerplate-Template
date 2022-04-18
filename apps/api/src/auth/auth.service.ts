@@ -13,6 +13,7 @@ import { PasswordService } from './password.service';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './entities/token.entity';
 import { SecurityConfig } from 'src/common/configs/config.interface';
+import { MailerService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,8 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly mailer: MailerService
   ) {}
 
   async createUser(payload: SignupInput): Promise<Token> {
@@ -37,6 +39,10 @@ export class AuthService {
         },
       });
 
+      await this.sendVerificationEmail({
+        userId: user.id,
+        email: user.email,
+      });
       return this.generateTokens({
         userId: user.id,
       });
@@ -77,6 +83,37 @@ export class AuthService {
     return this.prisma.user.findUnique({ where: { id: userId } });
   }
 
+  private async sendVerificationEmail(payload: {
+    userId: string;
+    email: string;
+  }): Promise<void> {
+    const accessToken = this.generateEmilVerificationToken({
+      email: payload.email,
+    });
+    await this.mailer.send({
+      templateId: 'd-676f81d643f24dfb9bcec466ec59589f',
+      to: payload.email,
+      variables: {
+        verification_link: `http://localhost:3000/verify?token=${accessToken}`,
+      },
+    });
+  }
+
+  async verifyEmailToken(token: string): Promise<User> {
+    try {
+      const { email } = this.jwtService.verify(token, {
+        secret: this.configService.get('JWT_ACCESS_SECRET'),
+      });
+      if (!email) throw new UnauthorizedException();
+      return this.prisma.user.findUnique({ where: { email } });
+    } catch (e) {
+      if (e.name === 'TokenExpiredError') {
+        throw new Error('Verification link has expired');
+      }
+      throw new Error(e?.message);
+    }
+  }
+
   getUserFromToken(token: string): Promise<User> {
     const id = this.jwtService.decode(token)['userId'];
     return this.prisma.user.findUnique({ where: { id } });
@@ -90,6 +127,10 @@ export class AuthService {
   }
 
   private generateAccessToken(payload: { userId: string }): string {
+    return this.jwtService.sign(payload);
+  }
+
+  private generateEmilVerificationToken(payload: { email: string }): string {
     return this.jwtService.sign(payload);
   }
 

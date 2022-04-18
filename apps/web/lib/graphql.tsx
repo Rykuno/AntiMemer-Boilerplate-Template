@@ -52,6 +52,7 @@ export type Mutation = {
   refreshToken: Token;
   signup: Auth;
   updateUser: User;
+  verifyEmailToken: User;
 };
 
 
@@ -82,6 +83,11 @@ export type MutationSignupArgs = {
 
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
+};
+
+
+export type MutationVerifyEmailTokenArgs = {
+  token: Scalars['String'];
 };
 
 /** Possible directions in which to order a list of items when provided an `orderBy` argument. */
@@ -146,6 +152,7 @@ export type Query = {
   me?: Maybe<User>;
   post: Post;
   publishedPosts: PostConnection;
+  user?: Maybe<User>;
   userPosts: Array<Post>;
 };
 
@@ -168,6 +175,11 @@ export type QueryPublishedPostsArgs = {
   orderBy?: InputMaybe<PostOrder>;
   query?: InputMaybe<Scalars['String']>;
   skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryUserArgs = {
+  where: UserWhereUniqueInput;
 };
 
 
@@ -221,12 +233,10 @@ export type User = {
   updatedAt: Scalars['DateTime'];
 };
 
-export type SignupMutationVariables = Exact<{
-  data: SignupInput;
-}>;
-
-
-export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } } };
+export type UserWhereUniqueInput = {
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+};
 
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
@@ -234,6 +244,13 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } } };
+
+export type SignupMutationVariables = Exact<{
+  data: SignupInput;
+}>;
+
+
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } } };
 
 export type MeFragment = { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role };
 
@@ -249,6 +266,13 @@ export type RefreshTokenMutationVariables = Exact<{
 
 export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'Token', accessToken: any, refreshToken: any } };
 
+export type VerifyEmailTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type VerifyEmailTokenMutation = { __typename?: 'Mutation', verifyEmailToken: { __typename?: 'User', id: string } };
+
 export const MeFragmentDoc = gql`
     fragment Me on User {
   id
@@ -259,24 +283,6 @@ export const MeFragmentDoc = gql`
   role
 }
     `;
-export const SignupDocument = gql`
-    mutation Signup($data: SignupInput!) {
-  signup(data: $data) {
-    user {
-      ...Me
-    }
-    accessToken
-    refreshToken
-  }
-}
-    ${MeFragmentDoc}`;
-export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, options);
-      }
-export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
-export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
-export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($data: LoginInput!) {
   login(data: $data) {
@@ -295,6 +301,24 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const SignupDocument = gql`
+    mutation Signup($data: SignupInput!) {
+  signup(data: $data) {
+    user {
+      ...Me
+    }
+    accessToken
+    refreshToken
+  }
+}
+    ${MeFragmentDoc}`;
+export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, options);
+      }
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -328,3 +352,17 @@ export function useRefreshTokenMutation(baseOptions?: Apollo.MutationHookOptions
 export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
 export type RefreshTokenMutationResult = Apollo.MutationResult<RefreshTokenMutation>;
 export type RefreshTokenMutationOptions = Apollo.BaseMutationOptions<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export const VerifyEmailTokenDocument = gql`
+    mutation VerifyEmailToken($token: String!) {
+  verifyEmailToken(token: $token) {
+    id
+  }
+}
+    `;
+export function useVerifyEmailTokenMutation(baseOptions?: Apollo.MutationHookOptions<VerifyEmailTokenMutation, VerifyEmailTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyEmailTokenMutation, VerifyEmailTokenMutationVariables>(VerifyEmailTokenDocument, options);
+      }
+export type VerifyEmailTokenMutationHookResult = ReturnType<typeof useVerifyEmailTokenMutation>;
+export type VerifyEmailTokenMutationResult = Apollo.MutationResult<VerifyEmailTokenMutation>;
+export type VerifyEmailTokenMutationOptions = Apollo.BaseMutationOptions<VerifyEmailTokenMutation, VerifyEmailTokenMutationVariables>;

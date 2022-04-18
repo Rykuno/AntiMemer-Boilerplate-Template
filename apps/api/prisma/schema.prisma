@@ -19,6 +19,8 @@ model User {
   firstname String?
   lastname  String?
 
+  emailVerified Boolean @default(false)
+
   avatar String?
 
   posts Post[]
