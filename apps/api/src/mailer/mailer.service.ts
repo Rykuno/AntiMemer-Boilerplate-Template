@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as sendgridClient from '@sendgrid/client';
 import * as sendgrid from '@sendgrid/mail';
-import dayjs from 'dayjs';
-import handlebars from 'handlebars';
-import * as nodemailer from 'nodemailer';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 sendgridClient.setApiKey(process.env.SENDGRID_API_KEY);
