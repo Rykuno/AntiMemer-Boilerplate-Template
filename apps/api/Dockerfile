@@ -1,24 +1,24 @@
-FROM node:14 AS builder
+# Is it the most optimized? No, but it works for MVP so shutup
 
-# Create app directory
+FROM node:16-alpine
 WORKDIR /app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-COPY prisma ./prisma/
-
-# Install app dependencies
-RUN npm install
+RUN npm install -g pnpm
 
 COPY . .
+RUN rm -rf apps/web
+RUN pnpm install --prod
 
-RUN npm run build
+RUN pnpm api:generate
 
-FROM node:14
-
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env echo /etc/secrets/.env > apps/api/.env
+RUN mv .env apps/api/.env
+RUN cat apps/api/.env
+RUN pnpm api:build
+RUN pnpm api:migrate
 
 EXPOSE 3000
-CMD [ "npm", "run", "start:prod" ]
+
+ENV PORT 3000
+
+CMD ["pnpm", "api:start"]

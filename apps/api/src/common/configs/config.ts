@@ -2,7 +2,7 @@ import type { Config } from './config.interface';
 
 const config: Config = {
   nest: {
-    port: 3000,
+    port: 4000,
   },
   cors: {
     enabled: true,
@@ -21,7 +21,7 @@ const config: Config = {
     sortSchema: true,
   },
   security: {
-    expiresIn: '2m',
+    expiresIn: '14m',
     refreshIn: '7d',
     bcryptSaltOrRound: 10,
   },

@@ -41,8 +41,10 @@ type Mutation {
   createPost(data: CreatePostInput!): Post!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
+  sendEmailVerificationLink: User!
   signup(data: SignupInput!): Auth!
   updateUser(data: UpdateUserInput!): User!
+  verifyEmailToken(token: String!): User!
 }
 
 """
@@ -149,6 +151,7 @@ type User {
   firstname: String
   id: ID!
   lastname: String
+  posts: [Post!]!
   role: Role!
 
   """Identifies the date and time when the object was last updated."""

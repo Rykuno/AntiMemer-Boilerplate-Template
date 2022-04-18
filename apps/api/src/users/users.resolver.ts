@@ -11,10 +11,11 @@ import { UseGuards } from '@nestjs/common';
 import { UserEntity } from 'src/common/decorators/user.decorator';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 import { UsersService } from './users.service';
-import { User } from './models/user.model';
+import { User } from './entities/user.entity';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { FindUniqueUserArgs } from '../@generated/prisma-nestjs-graphql/user/find-unique-user.args';
+import { FindUniqueUserArgs } from 'src/users/args/find-unique-user.args';
+import { Post } from 'src/posts/models/post.model';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -55,10 +56,10 @@ export class UsersResolver {
     );
   }
 
-  // @ResolveField('posts')
-  // posts(@Parent() author: User) {
-  //   return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
-  // }
+  @ResolveField(() => [Post])
+  posts(@Parent() author: User) {
+    return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
+  }
 
   @ResolveField(() => String)
   avatar(@Parent() user: User) {
