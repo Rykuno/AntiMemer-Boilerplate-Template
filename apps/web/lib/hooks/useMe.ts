@@ -9,7 +9,6 @@ export const ME_FRAGMENT = gql`
     avatar
     firstname
     firstname
-    role
   }
 `;
 

@@ -50,6 +50,7 @@ export type Mutation = {
   createPost: Post;
   login: Auth;
   refreshToken: Token;
+  sendEmailVerificationLink: User;
   signup: Auth;
   updateUser: User;
   verifyEmailToken: User;
@@ -187,12 +188,6 @@ export type QueryUserPostsArgs = {
   userId: Scalars['String'];
 };
 
-/** User role */
-export enum Role {
-  Admin = 'ADMIN',
-  User = 'USER'
-}
-
 export type SignupInput = {
   email: Scalars['String'];
   firstname?: InputMaybe<Scalars['String']>;
@@ -228,7 +223,6 @@ export type User = {
   id: Scalars['ID'];
   lastname?: Maybe<Scalars['String']>;
   posts: Array<Post>;
-  role: Role;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars['DateTime'];
 };
@@ -243,21 +237,21 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null } } };
 
 export type SignupMutationVariables = Exact<{
   data: SignupInput;
 }>;
 
 
-export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } } };
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'Auth', accessToken: any, refreshToken: any, user: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null } } };
 
-export type MeFragment = { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role };
+export type MeFragment = { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null, role: Role } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, avatar: string, firstname?: string | null } | null };
 
 export type RefreshTokenMutationVariables = Exact<{
   token: Scalars['JWT'];
@@ -280,7 +274,6 @@ export const MeFragmentDoc = gql`
   avatar
   firstname
   firstname
-  role
 }
     `;
 export const LoginDocument = gql`
