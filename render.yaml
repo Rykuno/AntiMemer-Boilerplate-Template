@@ -17,7 +17,7 @@ services:
       - key: JWT_REFRESH_SECRET
         value: nestjsPrismaRefreshSecret
       - key: PORT
-        value: 4000
+        value: 80
       - key: DATABASE_URL
         fromDatabase:
           name: antimemer-db
