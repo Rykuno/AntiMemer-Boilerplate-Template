@@ -24,7 +24,6 @@ model User {
   avatar String?
 
   posts Post[]
-  role  Role
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -41,9 +40,4 @@ model Post {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-enum Role {
-  ADMIN
-  USER
 }
