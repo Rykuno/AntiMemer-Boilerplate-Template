@@ -16,8 +16,28 @@ services:
         value: https://antimemer-api.onrender.com
       - key: APP_ENV
         value: production
+  - type: api
+    name: antimemer-api
+    env: docker
+    region: oregon # optional (defaults to oregon)
+    plan: starter # optional (defaults to starter)
+    branch: main # optional (uses repo default)
+    numInstances: 1 # optional (defaults to 1)
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    pullRequestPreviewsEnabled: false # optional
+    autoDeploy: true # optional
+    envVars:
+      - key: JWT_ACCESS_SECRET
+        value: nestjsPrismaAccessSecret
+      - key: JWT_REFRESH_SECRET
+        value: nestjsPrismaRefreshSecret
+      - key: DATABASE_URL
+        fromDatabase:
+          name: antimemer-db
+          property: connectionString
 databases:
   - name: antimemer-db
-    databaseName: poptaro_db # optional (Render may add a suffix)
+    databaseName: antimemer_db # optional (Render may add a suffix)
     user: poptaro_db_user # optional
     plan: starter

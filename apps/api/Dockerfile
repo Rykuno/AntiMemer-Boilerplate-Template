@@ -7,10 +7,8 @@ RUN npm install -g pnpm
 
 COPY . .
 RUN rm -rf apps/web
-RUN pnpm install --prod
-
-RUN pnpm api:generate
-
+RUN pnpm install 
+RUN pnpm api:generate 
 RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env echo /etc/secrets/.env > apps/api/.env
 RUN mv .env apps/api/.env
 RUN cat apps/api/.env
