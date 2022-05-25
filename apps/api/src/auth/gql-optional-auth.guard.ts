@@ -9,7 +9,12 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 @Injectable()
 export class GqlOptionalAuthGuard extends AuthGuard('jwt') {
   getRequest(context: ExecutionContext) {
+    // Ignore APP_GUARD auth for if the request is http and not graphql
+    if (context.getType() === 'http')
+      return context.switchToHttp().getRequest();
+
     const ctx = GqlExecutionContext.create(context);
+
     return ctx.getContext().req;
   }
 

@@ -39,5 +39,5 @@ services:
 databases:
   - name: antimemer-db
     databaseName: antimemer_db # optional (Render may add a suffix)
-    user: poptaro_db_user # optional
+    user: antimemer_db_user # optional
     plan: starter

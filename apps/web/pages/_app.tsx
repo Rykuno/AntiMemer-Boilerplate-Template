@@ -22,12 +22,14 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function BoilerplateApp(props: AppPropsWithLayout) {
-  const { Component, pageProps } = props;
+  const { Component, pageProps, router } = props;
   const apolloClient = useApollo(pageProps.initialApolloState);
   const getLayout = Component.getLayout ?? (page => page);
   const [colorScheme, setColorScheme] = React.useState<ColorScheme>("light");
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  if (router.pathname === "/healthz") return <Component {...pageProps} />;
 
   return (
     <>
