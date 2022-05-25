@@ -1,24 +1,4 @@
 services:
-  # A Docker web service
-  - type: web
-    name: antimemer-web
-    env: docker
-    region: oregon # optional (defaults to oregon)
-    plan: free # optional (defaults to starter)
-    branch: main # optional (uses repo default)
-    numInstances: 1 # optional (defaults to 1)
-    dockerfilePath: ./apps/web/Dockerfile
-    dockerContext: .
-    pullRequestPreviewsEnabled: false # optional
-    autoDeploy: true # optional
-    envVars:
-      - key: API_URL
-        fromService:
-          name: antimemer-api
-          type: web
-          property: hostport
-      - key: APP_ENV
-        value: production
   - type: web
     name: antimemer-api
     env: docker
@@ -42,6 +22,25 @@ services:
         fromDatabase:
           name: antimemer-db
           property: connectionString
+  - type: web
+    name: antimemer-web
+    env: docker
+    region: oregon # optional (defaults to oregon)
+    plan: free # optional (defaults to starter)
+    branch: main # optional (uses repo default)
+    numInstances: 1 # optional (defaults to 1)
+    dockerfilePath: ./apps/web/Dockerfile
+    dockerContext: .
+    pullRequestPreviewsEnabled: false # optional
+    autoDeploy: true # optional
+    envVars:
+      - key: API_URL
+        fromService:
+          name: antimemer-api
+          type: web
+          property: hostport
+      - key: APP_ENV
+        value: production
 databases:
   - name: antimemer-db
     databaseName: antimemer_db # optional (Render may add a suffix)
