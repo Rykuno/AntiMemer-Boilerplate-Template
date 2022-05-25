@@ -27,6 +27,7 @@ services:
     dockerContext: .
     pullRequestPreviewsEnabled: false # optional
     autoDeploy: true # optional
+    healthCheckPath: /healthz
     envVars:
       - key: JWT_ACCESS_SECRET
         value: nestjsPrismaAccessSecret

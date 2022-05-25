@@ -14,7 +14,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
 import { GqlOptionalAuthGuard } from './auth/gql-optional-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
-import { MailerModule } from './mailer/mailer.module';
 
 @Module({
   imports: [
@@ -34,7 +33,6 @@ import { MailerModule } from './mailer/mailer.module';
     AuthModule,
     UsersModule,
     PostsModule,
-    MailerModule,
   ],
   controllers: [AppController],
   providers: [
