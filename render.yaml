@@ -13,7 +13,10 @@ services:
     autoDeploy: true # optional
     envVars:
       - key: API_URL
-        value: https://antimemer-api.onrender.com
+        fromService:
+          name: antimemer-api
+          type: web
+          property: hostport
       - key: APP_ENV
         value: production
   - type: web
