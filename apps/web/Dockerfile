@@ -8,7 +8,7 @@ RUN npm install -g pnpm
 
 COPY . .
 RUN rm -rf apps/api
-RUN pnpm install 
+RUN pnpm install
 RUN pnpm build:web
 
 EXPOSE 3000

@@ -10,7 +10,13 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "api:build": "cd apps/api && pnpm build",
+    "api:start": "cd apps/api && pnpm start:prod",
+    "api:generate": "cd apps/api && pnpm prisma:generate",
+    "api:migrate": "cd apps/api && pnpm migrate:deploy",
+    "build:web": "cd apps/web && pnpm build",
+    "start:web": "cd apps/web && pnpm start"
   },
   "devDependencies": {
     "prettier": "^2.6.2",
@@ -20,5 +26,5 @@
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@6.32.3"
+  "packageManager": "pnpm@7.1.5"
 }
