@@ -16,7 +16,7 @@ services:
         value: https://antimemer-api.onrender.com
       - key: APP_ENV
         value: production
-  - type: api
+  - type: web
     name: antimemer-api
     env: docker
     region: oregon # optional (defaults to oregon)
