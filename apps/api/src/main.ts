@@ -48,9 +48,9 @@ async function bootstrap() {
     SwaggerModule.setup(swaggerConfig.path || 'api', app, document);
   }
 
-  // Cors
+  // // Cors
   // if (corsConfig.enabled) {
-  //   app.enableCors();
+  // app.enableCors();
   // }
 
   await app.listen(process.env.PORT || nestConfig.port || 3000);

@@ -15,8 +15,8 @@ RUN cat apps/api/.env
 RUN pnpm api:build
 RUN pnpm api:migrate
 
-EXPOSE 80
+EXPOSE 10000
 
-ENV PORT 80
+ENV PORT 10000
 
 CMD ["pnpm", "api:start"]
