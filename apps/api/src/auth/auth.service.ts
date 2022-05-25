@@ -13,7 +13,6 @@ import { PasswordService } from './password.service';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './entities/token.entity';
 import { SecurityConfig } from 'src/common/configs/config.interface';
-import { MailerService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +20,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService,
-    private readonly mailer: MailerService
+    private readonly configService: ConfigService
   ) {}
 
   async createUser(payload: SignupInput): Promise<Token> {
@@ -88,13 +86,6 @@ export class AuthService {
   }): Promise<void> {
     const accessToken = this.generateEmilVerificationToken({
       email: payload.email,
-    });
-    await this.mailer.send({
-      templateId: 'd-676f81d643f24dfb9bcec466ec59589f',
-      to: payload.email,
-      variables: {
-        verification_link: `http://localhost:3000/verify?token=${accessToken}`,
-      },
     });
   }
 

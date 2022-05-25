@@ -11,15 +11,11 @@ import { Token } from './entities/token.entity';
 import { LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
-import { MailerService } from 'src/mailer/mailer.service';
 import { User } from 'src/users/entities/user.entity';
 
 @Resolver(() => Auth)
 export class AuthResolver {
-  constructor(
-    private readonly auth: AuthService,
-    private readonly mailer: MailerService
-  ) {}
+  constructor(private readonly auth: AuthService) {}
 
   @Mutation(() => Auth)
   async signup(@Args('data') data: SignupInput) {
@@ -51,9 +47,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  async sendEmailVerificationLink(@Parent() user: User) {
-    
-  }
+  async sendEmailVerificationLink(@Parent() user: User) {}
 
   @Mutation(() => Token)
   async refreshToken(@Args() { token }: RefreshTokenInput) {
