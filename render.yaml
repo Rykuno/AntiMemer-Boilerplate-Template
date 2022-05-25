@@ -3,7 +3,7 @@ services:
   - type: web
     name: antimemer-web
     env: docker
-    repo: https://github.com/render-examples/webdis.git # optional
+    repo: https://github.com/Rykuno/AntiMemer-Boilerplate-Template.git # optional
     region: oregon # optional (defaults to oregon)
     plan: starter # optional (defaults to starter)
     branch: main # optional (uses repo default)
@@ -12,7 +12,7 @@ services:
     dockerfilePath: ./apps/web/Dockerfile
     dockerContext: .
     pullRequestPreviewsEnabled: false # optional
-    autoDeploy: false # optional
+    autoDeploy: true # optional
     envVars:
       - key: API_URL
         value: https://antimemer-api.onrender.com
