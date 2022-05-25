@@ -15,7 +15,7 @@ import { User } from './entities/user.entity';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { FindUniqueUserArgs } from 'src/users/args/find-unique-user.args';
-import { Post } from 'src/posts/models/post.model';
+import { Post } from 'src/posts/entities/post.entity';
 
 @Resolver(() => User)
 export class UsersResolver {

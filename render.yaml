@@ -1,0 +1,25 @@
+services:
+  # A Docker web service
+  - type: web
+    name: antimemer-web
+    env: docker
+    repo: https://github.com/render-examples/webdis.git # optional
+    region: oregon # optional (defaults to oregon)
+    plan: starter # optional (defaults to starter)
+    branch: main # optional (uses repo default)
+    numInstances: 1 # optional (defaults to 1)
+    healthCheckPath: /healthz
+    dockerfilePath: ./apps/web/Dockerfile
+    dockerContext: .
+    pullRequestPreviewsEnabled: false # optional
+    autoDeploy: false # optional
+    envVars:
+      - key: API_URL
+        value: https://antimemer-api.onrender.com
+      - key: APP_ENV
+        value: production
+databases:
+  - name: antimemer-db
+    databaseName: poptaro_db # optional (Render may add a suffix)
+    user: poptaro_db_user # optional
+    plan: starter

@@ -1,17 +1,6 @@
-import {
-  ObjectType,
-  registerEnumType,
-  HideField,
-  Field,
-} from '@nestjs/graphql';
-import { Post } from 'src/posts/models/post.model';
-import { BaseModel } from 'src/common/models/base.model';
-import { Role } from '@prisma/client';
-
-registerEnumType(Role, {
-  name: 'Role',
-  description: 'User role',
-});
+import { ObjectType, HideField, Field } from '@nestjs/graphql';
+import { Post } from 'src/posts/entities/post.entity';
+import { BaseModel } from 'src/common/entities/base.entity';
 
 @ObjectType()
 export class User extends BaseModel {
@@ -19,11 +8,6 @@ export class User extends BaseModel {
   firstname?: string;
   lastname?: string;
   avatar: string;
-
-  @Field(() => Role)
-  role: Role;
-
-  // posts: Post[];
 
   @HideField()
   password: string;

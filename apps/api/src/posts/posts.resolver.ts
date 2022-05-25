@@ -17,8 +17,8 @@ import { User } from 'src/users/entities/user.entity';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 import { PostIdArgs } from './args/post-id.args';
 import { UserIdArgs } from './args/user-id.args';
-import { Post } from './models/post.model';
-import { PostConnection } from './models/post-connection.model';
+import { Post } from './entities/post.entity';
+import { PostConnection } from './entities/post-connection.entity';
 import { PostOrder } from './dto/post-order.input';
 import { CreatePostInput } from './dto/createPost.input';
 
