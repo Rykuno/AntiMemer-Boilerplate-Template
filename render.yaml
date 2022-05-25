@@ -4,7 +4,7 @@ services:
     name: antimemer-web
     env: docker
     region: oregon # optional (defaults to oregon)
-    plan: starter # optional (defaults to starter)
+    plan: free # optional (defaults to starter)
     branch: main # optional (uses repo default)
     numInstances: 1 # optional (defaults to 1)
     dockerfilePath: ./apps/web/Dockerfile
@@ -20,7 +20,7 @@ services:
     name: antimemer-api
     env: docker
     region: oregon # optional (defaults to oregon)
-    plan: starter # optional (defaults to starter)
+    plan: free # optional (defaults to starter)
     branch: main # optional (uses repo default)
     numInstances: 1 # optional (defaults to 1)
     dockerfilePath: ./apps/api/Dockerfile
@@ -43,4 +43,4 @@ databases:
   - name: antimemer-db
     databaseName: antimemer_db # optional (Render may add a suffix)
     user: antimemer_db_user # optional
-    plan: starter
+    plan: free
