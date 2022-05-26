@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: antimemer-api
+    name: api
     env: docker
     region: oregon # optional (defaults to oregon)
     plan: free # optional (defaults to starter)
@@ -12,6 +12,8 @@ services:
     autoDeploy: true # optional
     healthCheckPath: /.well-known/apollo/server-health
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: JWT_ACCESS_SECRET
         value: nestjsPrismaAccessSecret
       - key: JWT_REFRESH_SECRET
@@ -20,10 +22,10 @@ services:
         value: 10000
       - key: DATABASE_URL
         fromDatabase:
-          name: antimemer-db
+          name: db
           property: connectionString
   - type: web
-    name: antimemer-web
+    name: web
     env: docker
     region: oregon # optional (defaults to oregon)
     plan: free # optional (defaults to starter)
@@ -36,13 +38,18 @@ services:
     envVars:
       - key: API_URL
         fromService:
-          name: antimemer-api
+          name: api
           type: web
           property: hostport
       - key: APP_ENV
         value: production
+      - key: WEB_HOSTPORT
+        fromService:
+          name: web
+          type: web
+          property: hostport
 databases:
-  - name: antimemer-db
-    databaseName: antimemer_db # optional (Render may add a suffix)
-    user: antimemer_db_user # optional
+  - name: db
     plan: free
+    region: oregon
+    postgresMajorVersion: 14
