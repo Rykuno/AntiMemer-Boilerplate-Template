@@ -12,8 +12,6 @@ services:
     autoDeploy: true # optional
     healthCheckPath: /.well-known/apollo/server-health
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: WEB_HOSTPORT
         fromService:
           name: web
@@ -47,6 +45,8 @@ services:
           type: web
           property: hostport
       - key: APP_ENV
+        value: production
+      - key: NODE_ENV
         value: production
 databases:
   - name: db
