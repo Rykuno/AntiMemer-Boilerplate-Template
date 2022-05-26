@@ -45,7 +45,9 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: !isBrowser() ? process.env.NEXT_PUBLIC_API_URL : "/api/graphql"
+  uri: !isBrowser()
+    ? process.env.NEXT_PUBLIC_API_URL + "/graphql"
+    : "/api/graphql"
 });
 
 function createApolloClient(initialState: null | Record<string, any>) {
