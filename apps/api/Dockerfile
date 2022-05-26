@@ -15,4 +15,6 @@ RUN cat apps/api/.env
 RUN pnpm api:build
 RUN pnpm api:migrate
 
+EXPOSE 4000
+
 CMD ["pnpm", "api:start"]

@@ -17,6 +17,9 @@ export class GqlConfigService implements GqlOptionsFactory {
         numberScalarMode: 'integer',
       },
       // subscription
+      cors: {
+        origin: '*',
+      },
       installSubscriptionHandlers: true,
       debug: graphqlConfig.debug,
       playground: graphqlConfig.playgroundEnabled,
