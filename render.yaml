@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - type: pserv
     name: antimemer-api
     env: docker
     region: oregon # optional (defaults to oregon)
