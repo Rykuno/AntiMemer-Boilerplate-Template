@@ -37,7 +37,7 @@ services:
       - key: API_URL
         fromService:
           name: antimemer-api
-          type: web
+          type: pserv
           property: hostport
       - key: APP_ENV
         value: production
