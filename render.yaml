@@ -10,7 +10,7 @@ services:
     dockerContext: .
     pullRequestPreviewsEnabled: false # optional
     autoDeploy: true # optional
-    healthCheckPath: /.well-known/apollo/server-health
+    # healthCheckPath: /.well-known/apollo/server-health
     envVars:
       - key: JWT_ACCESS_SECRET
         value: nestjsPrismaAccessSecret
