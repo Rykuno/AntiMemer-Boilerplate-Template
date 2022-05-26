@@ -1,16 +1,16 @@
 services:
-  - type: pserv
+  - type: web
     name: antimemer-api
     env: docker
     region: oregon # optional (defaults to oregon)
-    plan: starter # optional (defaults to starter)
+    plan: free # optional (defaults to starter)
     branch: main # optional (uses repo default)
     numInstances: 1 # optional (defaults to 1)
     dockerfilePath: ./apps/api/Dockerfile
     dockerContext: .
     pullRequestPreviewsEnabled: false # optional
     autoDeploy: true # optional
-    # healthCheckPath: /.well-known/apollo/server-health
+    healthCheckPath: /.well-known/apollo/server-health
     envVars:
       - key: JWT_ACCESS_SECRET
         value: nestjsPrismaAccessSecret
@@ -37,7 +37,7 @@ services:
       - key: API_URL
         fromService:
           name: antimemer-api
-          type: pserv
+          type: web
           property: hostport
       - key: APP_ENV
         value: production
