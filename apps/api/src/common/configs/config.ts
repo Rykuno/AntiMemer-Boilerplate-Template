@@ -15,8 +15,8 @@ const config: Config = {
     path: 'api',
   },
   graphql: {
-    playgroundEnabled: process.env.NODE_ENV !== 'production',
-    debug: process.env.NODE_ENV !== 'production',
+    playgroundEnabled: true,
+    debug: true,
     schemaDestination: './src/schema.graphql',
     sortSchema: true,
   },

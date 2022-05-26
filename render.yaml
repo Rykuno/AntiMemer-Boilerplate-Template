@@ -14,6 +14,11 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: WEB_HOSTPORT
+        fromService:
+          name: web
+          type: web
+          property: hostport
       - key: JWT_ACCESS_SECRET
         value: nestjsPrismaAccessSecret
       - key: JWT_REFRESH_SECRET
@@ -43,11 +48,6 @@ services:
           property: hostport
       - key: APP_ENV
         value: production
-      - key: WEB_HOSTPORT
-        fromService:
-          name: web
-          type: web
-          property: hostport
 databases:
   - name: db
     plan: free
