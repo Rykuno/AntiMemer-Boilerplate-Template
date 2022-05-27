@@ -42,7 +42,7 @@ services:
       - key: NEXT_PUBLIC_API_URL
         fromService:
           name: api
-          type: pserv
+          type: web
           property: hostport
       - key: APP_ENV
         value: production
