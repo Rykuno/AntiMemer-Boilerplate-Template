@@ -1,5 +1,5 @@
 services:
-  - type: pserv
+  - type: web
     name: api
     env: docker
     region: oregon # optional (defaults to oregon)
