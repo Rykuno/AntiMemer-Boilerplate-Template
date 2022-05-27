@@ -12,7 +12,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 import { mergeDeep } from "@apollo/client/utilities";
 import type { RefreshResponse } from "pages/api/refresh-token";
 
-// import { API_URL, REDIRECT_PATH, REDIRECT_REFRESH_KEY } from "lib/config";
+import { GQL_URL } from "lib/config";
 
 export const isBrowser = () => typeof window !== "undefined";
 
@@ -45,9 +45,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: !isBrowser()
-    ? process.env.NEXT_PUBLIC_API_URL + "/graphql"
-    : "/api/graphql"
+  uri: !isBrowser() ? GQL_URL : "/api/graphql"
 });
 
 function createApolloClient(initialState: null | Record<string, any>) {

@@ -39,7 +39,7 @@ services:
     pullRequestPreviewsEnabled: false # optional
     autoDeploy: true # optional
     envVars:
-      - key: NEXT_PUBLIC_API_URL
+      - key: NEXT_PUBLIC_API_HOSTPORT
         fromService:
           name: api
           type: web
