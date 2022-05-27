@@ -1,9 +1,9 @@
 services:
-  - type: web
+  - type: pserv
     name: api
     env: docker
     region: oregon # optional (defaults to oregon)
-    plan: free # optional (defaults to starter)
+    plan: starter # optional (defaults to starter)
     branch: main # optional (uses repo default)
     numInstances: 1 # optional (defaults to 1)
     dockerfilePath: ./apps/api/Dockerfile
@@ -42,7 +42,7 @@ services:
       - key: NEXT_PUBLIC_API_URL
         fromService:
           name: api
-          type: web
+          type: pserv
           property: hostport
       - key: APP_ENV
         value: production
